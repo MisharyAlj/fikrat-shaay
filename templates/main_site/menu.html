@@ -1,0 +1,53 @@
+{% extends 'main_site/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block menu %}
+<div class="row">
+    <div class="col">
+        <div class="section_title_container text-center">
+            <div class="section_title">
+                <h1>{% trans 'Discover Our Menu' %}</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col themenu_row" id="menu-list">
+
+    {% for category in categories %}
+    <!-- Categorie {{ category.title }} -->
+    <div class="col-lg-7 themenu_column ml-auto mr-auto">
+        <div class="themenu_image"><img src="{{ category.image.url }}" alt="{{ category.title }} image"></div>
+        <div class="themenu_col trans_400">
+            <div class="themenu_col_title">{% if LANGUAGE_CODE == 'en' %}{{ category.title }}{% else %}{{ category.ar_title }}{% endif %}</div>
+            <div class="dish_list">
+
+                {# COMMINT: Return all the products related to the category and sorting them by the item title #}
+                {% for item in category.products.all|dictsort:"title" %}
+                <!-- Item {{ item.title }} -->
+                <div class="dish">
+                    <div class="dish_title_container d-flex flex-xl-row flex-column align-items-start justify-content-start">
+                        <div class="dish_title">{% if LANGUAGE_CODE == 'en' %}{{ item.title }}{% else %}{{ item.ar_title }}{% endif %}</div>
+                        <div class="dish_title">{{ item.price }} {% trans "SAR" %}</div>
+                    </div>
+                    <hr>
+                </div>
+                {# COMMINT: return this if the category has no items. #}
+                {% empty %}
+                <div class="dish">
+                    <div class="dish_title_container align-items-start justify-content-start">
+                        <h1 class="dish_title text-warning">We are working on it...</h1>
+                        <div class="text-success">Sorry about that lookls like there is no items added in this
+                            sectionyet!</div>
+                        <div class="text-success">Hopefully it will be available soon.</div>
+                    </div>
+                </div>
+                {% endfor item %}
+
+            </div>
+        </div>
+    </div>
+    {% endfor category %}
+</div>
+
+{% endblock menu %}

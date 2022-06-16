@@ -1,0 +1,31 @@
+{% load i18n %}
+{% load crispy_forms_tags %}
+<!-- Modal -->
+<div class="modal fade" id="commonModal" tabindex="-1" role="dialog" aria-labelledby="commonModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="col-md-12 grid-margin stretch-card m-0 p-0">
+                <div class="card">
+                    <div class="card-body">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="text-white">&times;</span>
+                        </button>
+                        <h4 class="card-title">{{ title }}</h4>
+                        <p class="card-description"> {{ modalDesc }} </p>
+                        <div class="modal-body">
+                            <form id="{{ for }}-form" action="">
+                                {% csrf_token %}
+                                {{ form | crispy }}
+                                <div class="modal-footer">
+                                    <button type="submit" name="create_new" class="btn btn-outline-secondary btn-fw">{% trans "Add" %}</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

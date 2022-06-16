@@ -1,0 +1,241 @@
+{% extends 'back_office/base.html'%}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block contant %}
+{# <!-- Get language code as LANGUAGE_CODE --> #}
+{% get_current_language as LANGUAGE_CODE %}
+
+<div class="row ">
+    <div class="col-sm grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{% if LANGUAGE_CODE == 'ar' %}{{ category.ar_title }}{% else %}{{ category.title }}{% endif %} | {% trans "Details" %}</h4>
+                <p class="card-description">{% if category.content != None %}{{ category.content }}{% else %}{% trans 'This category has no discription.' %}{% endif %}</p>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                    <div class="modal-footer">
+                        <a href="{% url 'delete_category' category.slug %}" class="btn btn-inverse-danger">{% trans "Delete" %}</a>
+                        <input type="submit"name="_save" value="{% trans 'Save' %}" class="btn btn-inverse-primary">
+                        <input type="submit" name="_continue" value="{% trans 'Save and continue editing' %}" class="btn btn-inverse-primary">
+                    </div>
+                </form>
+                <h4 class="card-title mt-4">{% if LANGUAGE_CODE == 'ar' %}{{ category.ar_title }}{% else %}{{ category.title }}{% endif %} | {% trans "Products" %}</h4>
+                <div class="table-responsive">
+                {% if category.products.all %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th> {% trans "Product Name" %} </th>
+                                <th> {% trans "Price" %} </th>
+                                <th> {% trans "Created at" %} </th>
+                                <th> {% trans "Created by" %} </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in category.products.all|dictsort:"title" %}
+                            <tr>
+                                <td>
+                                    {% if LANGUAGE_CODE != 'ar' %}
+                                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#{{ product.slug }}" title="{{ product.ar_title | title }}">{{ product.title | title }}</button>
+                                    {% else %}
+                                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#{{ product.slug }}" title="{{ product.title | title }}">{{ product.ar_title | title }}</button>
+                                    {% endif %}
+                                    <!-- Modal --> 
+                                    <div class="modal fade" id="{{ product.slug }}" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl">
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true" class="text-white">&times;</span>
+                                                        </button>
+                                                        {% get_current_language as LANGUAGE_CODE %}
+                                                        <h4 class="card-title">{% if LANGUAGE_CODE != 'ar' %}{{product.title}}{% else %}{{ product.ar_title }}{% endif %}</h4>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                              <div class="form-group row">
+                                                                <label class="row-sm-12 col-form-label">العنوان</label>
+                                                                <div class="row-sm-12">
+                                                                  <h5 class="text-white" title="{{ product.ar_title }}">{{ product.ar_title }}</h5>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                              <div class="form-group row">
+                                                                <label for="exampleInputUsername1" class="row-sm-12 col-form-label">English title</label>
+                                                                <div class="row-sm-12">
+                                                                  <h5 class="text-white">{{ product.title }}</h5>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                              <div class="form-group row">
+                                                                <label class="row-sm-12 col-form-label">{% trans "Price" %}</label>
+                                                                <div class="row-sm-12">
+                                                                  <h5 class="text-white">{{ product.price }} {% trans 'SAR'%}</h5>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                              <div class="form-group row">
+                                                                <label for="exampleInputUsername1" class="row-sm-12 col-form-label">{% trans "Category" %}</label>
+                                                                <div class="row-sm-12">
+                                                                    {% if LANGUAGE_CODE != 'ar' %}
+                                                                    <h5 class="text-white" title="{{ product.category.ar_title }}">{{ product.category.title }}</h5>
+                                                                    {% else %}
+                                                                    <h5 class="text-white" title="{{ product.category.title }}">{{ product.category.ar_title }}</h5>
+                                                                    {% endif %}
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="row-sm-12 col-form-label" for="exampleInputPassword1">{% trans "Summary" %}</label>
+                                                            <div class="row-sm-12">
+                                                                <h5 class="text-white">{% if product.summary != None %}{{ product.summary }}{% else %}{% trans 'This product has no summary.' %}{% endif %}</h5>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                        <h5 class="card-description">{% trans 'Important dates' %}</h5>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <p>{% trans "Created at" %}<span class="btn btn-link" title="Popover title">{{ product.createdAt }}.</span></p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <p>{% trans "Last update" %}<span class="btn btn-link" title="Popover title">{{ product.updatedAt }}.</span></p>
+                                                            </div>
+                                                        </div>
+                                                        <p>{% trans "Created by" %}<a href="{% url 'users' %}" role="button" class="btn btn-link" title="Popover title" data-content="Popover body content is set in this attribute.">{{product.createdBy.first_name}}.</a></p>
+                                                        <div class="modal-footer">
+                                                            <a href="{% url 'product_detail' product.slug %}" class="btn btn-inverse-primary">{% trans "Update" %}</a>
+                                                            <a href="{% url 'delete_product' product.slug %}" class="btn btn-inverse-danger">{% trans "Delete" %}</a>
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge badge-outline-success">{{ product.price }} {% trans "SAR" %}</span>
+                                </td>
+                                <td>
+                                    <div class="pl-2">{{ product.createdAt }}</div>
+                                </td>
+                                <td>
+                                    <div class="pl-2">{{ product.createdBy.first_name }} {{ product.createdBy.last_name }}</div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>{% trans 'There is no products yet in this category' %} '{{category.title}}'
+                    <!-- Button trigger modal -->
+                    <button class="btn btn-link" data-toggle="modal" data-target="#productModal">{% trans "Add product" %}</button>
+                    </p>
+                    <!-- Modal -->
+                    <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="col-md-12 grid-margin stretch-card m-0 p-0">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true" class="text-white">&times;</span>
+                                            </button>
+                                            <h4 class="card-title">{{ title }}</h4>
+                                            <p class="card-description"> {{ modalDesc }} </p>
+                                            <div class="modal-body">
+                                                <form id="product-form" action="">
+                                                    {% csrf_token %}
+                                                    {{ new_product_form | crispy }}
+                                                    <div class="modal-footer">
+                                                        <button type="submit" name="_new_product" class="btn btn-outline-secondary btn-fw">{% trans "Add" %}</button>
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock contant %}
+
+{% block scripts %}
+<script>
+    /* ----------------TODO: Save the updated category and add delete method ----------------------*/
+    $(document).ready(function () {
+        /* On submiting the form, send the POST ajax
+        request to server and after successfull submission
+        display the object. */
+        $("#category-form").submit(function (e) {
+            // preventing from page reload and default actions
+            e.preventDefault();
+            // serialize the data for sending the form data.
+            var serializedData = $(this).serialize();
+            console.log("test")
+            // make POST ajax call
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'category-detail' category.slug %}",
+                data: serializedData,
+                success: function (response) {
+                    // on successfull creating object
+                    // 1. clear the form.
+                    $("#category-form").trigger('reset');
+                    // 2. focus to nickname input 
+                    $("#id_title").focus();
+
+                    // display the newly friend to table.
+                    var instance = JSON.parse(response["instance"]);
+                    var fields = instance[0]["fields"];
+                    $("tbody").prepend(
+
+                        `<tr>
+                            <td>
+                                <div class="form-check form-check-muted m-0">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input">
+                                            <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="pl-2">${fields["title"] || ""}</span>
+                            </td>
+                            <td>
+                                <div class="badge badge-outline-success">${fields["content"] || "This Category has no description."}
+                                </div>
+                             </td>
+                        </tr>`
+                    )
+                },
+                error: function (response) {
+                    // alert the error if any error occured
+                    alert(response["responseJSON"]["error"]);
+                }
+            })
+        })
+    });
+</script>
+{% endblock scripts %}

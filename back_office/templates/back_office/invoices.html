@@ -1,0 +1,165 @@
+{% extends 'back_office/base.html'%}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block contant %}
+{% include 'common/filter_modal.html' %}
+
+<div class="row ">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{% trans "invoices" %}</h4> 
+                <!-- Button trigger modal -->
+                <button class="btn btn-inverse-primary btn-fw mr-2" data-toggle="modal" data-target="#commonFilterModal">{% trans "Filter" %}</button>
+                {% if invoices %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div class="form-check form-check-muted m-0 p-0">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input">
+                                        </label>
+                                    </div>
+                                </th>
+                                <th style="text-transform: capitalize;"> {% trans "invoice ID" %} </th>
+                                <th style="text-transform: capitalize;"> {% trans "total" %} </th>
+                                <th style="text-transform: capitalize;"> {% trans "payment type" %} </th>
+                                <th><i class="mdi mdi-eye btn-icon-prepend"></i>{% trans "View" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for invoice in invoices %}
+                            <tr>
+                                <td>
+                                    <div class="form-check form-check-muted m-0 p-0">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input">
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="#" class="btn btn-link">{{ invoice.invoiceId }}</a>
+                                </td>
+                                <td>
+                                    <div class="pl-2">{{ invoice.total }} {% trans "SAR" %}</div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span class="badge badge-outline-{% if invoice.payment_type != 'Cash' %}success{% else %}warning{% endif %}">{{ invoice.payment_type | title }}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#inv{{ invoice.invoiceId }}" title="{{ invoice.invoiceId}}">
+                                        <i class="mdi mdi-eye btn-icon-prepend"></i></button>
+                                    <!-- Modal --> 
+                                    <div class="modal fade" id="inv{{ invoice.invoiceId }}" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl">
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true" class="text-white">&times;</span>
+                                                        </button>
+                                                        <h4 class="card-title">{{ invoice.invoiceId }}</h4>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                              <div class="form-group row">
+                                                                <label class="row-sm-12 col-form-label">{% trans 'total' %}</label>
+                                                                <div class="row-sm-12">
+                                                                  <h5 class="text-white">{{ invoice.total }} {% trans 'SAR' %}</h5>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                              <div class="form-group row">
+                                                                <label for="exampleInputUsername1" class="row-sm-12 col-form-label">{% trans 'payment type' %}</label>
+                                                                <div class="row-sm-12">
+                                                                  <h5 class="text-white">{{ invoice.payment_type }}</h5>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                        </div>
+                                                        <h5 class="card-description">{% trans 'Products' %}</h5>
+                                                        <div class="table-responsive">
+                                                        {% if invoice != None %}
+                                                            <table class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th> No </th>
+                                                                        <th> {% trans "Product" %} </th>
+                                                                        <th> {% trans "Price" %} </th>
+                                                                        <th> {% trans "quantity" %} </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                {% for product in invoice.invoice_cart.all %}
+                                                                    <tr>
+                                                                        <td>
+                                                                            <span class="pl-2">{{ forloop.counter }}</span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span class="pl-2"><a href="{% url 'product_detail' product.product.slug %}" title="{{product.product.title | title}}">{{ product.product.ar_title }}<a/></span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span class="badge badge-outline-success">{{ product.product.price }} {% trans "SAR" %}</span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="pl-2">{{ product.quantity }}</div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    {% endfor %}
+                                                                </tbody>
+                                                            </table>
+                                                            {% else %}
+                                                            <p>There is no products yet in this invoice '{{invoice.invoiceId}}'</p>
+                                                            {% endif %}
+                                                        </div>
+                                                        <h5 class="card-description mt-4">{% trans 'Important dates' %}</h5>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <p>{% trans "Created at" %}<span class="btn btn-link" title="Popover title">{{ invoice.createdAt | date:"M j,y, g:i A"}}.</span></p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <p>{% trans "Last update" %}<span class="btn btn-link" title="Popover title">{{ invoice.updatedAt | date:"M j,y, g:i A" }}.</span></p>
+                                                            </div>
+                                                        </div>
+                                                        <p>{% trans "Created by" %}<a href="{% url 'users' %}" role="button" class="btn btn-link" title="Popover title" data-content="Popover body content is set in this attribute.">{{invoice.createdBy.first_name}}.</a></p>
+                                                    </div>{% comment %} 
+                                                    <div class="card-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    </div> {% endcomment %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="container align-items-center  text-center">
+                    <h5 class="text-muted mb-4 mt-4">{% trans "Sorry about that lock's like there is no invoices!" %}</h5>
+                    <div class="d-flex justify-content-center">
+                        <img class="img-fluid" alt="No invoices" src="{% static 'back_office/assets/images/main/read.png' %}"/>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock contant %}
+

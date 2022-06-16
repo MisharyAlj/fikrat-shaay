@@ -1,0 +1,18 @@
+{% extends 'Users/base.html'%}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+<form method="post" class=" {% if LANGUAGE_CODE == 'en' %}text-left{% else %}text-right{% endif %}">
+  {% csrf_token %}
+
+  {{form|crispy}}
+  <a href="#" class="forgot-pass" style="float: inline-end; margin-bottom: 1rem;">{% trans "Forgot password?" %}</a>
+  <div class="text-center">
+    <button type="submit" class="btn btn-success btn-block text-dark" style="font-weight: 500;">{% trans "Sign in" %}</button>
+  </div>
+  <p class="sign-up">{% translate "Back to" %}<a href="{% url 'menu' %}"> {% translate "Tea Idea" %}</a></p>
+</form>
+{% endblock content %}

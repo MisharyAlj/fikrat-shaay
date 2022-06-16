@@ -1,0 +1,204 @@
+{% extends 'back_office/base.html'%}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block contant %}
+<!-- Modal -->
+{% trans "New category" as title %}
+{% trans "Create new category." as desc %}
+{% include 'common/modal.html' with title=title modalDesc=desc for='category' %}
+
+{% get_current_language as LANGUAGE_CODE %}
+<div class="row ">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{% trans "Categories" %}</h4>
+                <!-- Button trigger modal -->
+                <button class="btn btn-inverse-primary btn-fw mr-2" data-toggle="modal" data-target="#commonModal">{% trans "Add category" %}</button>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th> {% trans "Category" %} </th>
+                                <th> {% trans "Content" %} </th>
+                                <th><i class="mdi mdi-delete btn-icon-prepend"></i>{% trans "Delete" %} <i class="mdi mdi-eye btn-icon-prepend"></i>{% trans "View" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for category in categories %}
+                            <tr>
+                                <td>
+                                    {% if LANGUAGE_CODE != 'ar' %}
+                                    <a href="{% url 'category_detail' category.slug %}" class="btn btn-link" title="{{ category.ar_title}}">{{category.title}}</a>
+                                    {% else %}
+                                    <a href="{% url 'category_detail' category.slug %}" class="btn btn-link" title="{{ category.title}}">{{ category.ar_title}}</a>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <span class="pl-2">{% if category.content != None %}
+                                        {{category.content | title }}{% else %}{% trans 'This category has no discription.' %}{% endif %}</span>
+                                </td>
+                                <td>
+                                    <a href="{% url 'delete_category' category.slug %}" class="btn btn-outline-danger">
+                                        <i class="mdi mdi-delete btn-icon-prepend"></i></a>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#{{ category.slug }}" title="{{ category.ar_title}}">
+                                        <i class="mdi mdi-eye btn-icon-prepend"></i></button>
+                                    <!-- Modal --> 
+                                    <div class="modal fade" id="{{ category.slug }}" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl">
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true" class="text-white">&times;</span>
+                                                        </button>
+                                                        <h4 class="card-title">{% if LANGUAGE_CODE != 'ar' %}{{category.title}}{% else %}{{ category.ar_title }}{% endif %}</h4>
+                                                        <p class="text-muted" >{% if category.content != None %}
+                                                        {{category.content | title }}{% else %}{% trans 'This category has no description.' %}{% endif %}</p>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                              <div class="form-group row">
+                                                                <label class="row-sm col-form-label text-muted">العنوان</label>
+                                                                <div class="row-sm">
+                                                                  <h5 class="text-white" title="{{ product.title }}">{{ category.ar_title }}</h5>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                              <div class="form-group row">
+                                                                <label for="exampleInputUsername1" class="row-sm-12 col-form-label text-muted">English title</label>
+                                                                <div class="row-sm">
+                                                                  <h5 class="text-white" title="{{ product.title }}">{{ category.title }}</h5>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="row-sm col-form-label text-muted" for="exampleInputPassword1">{% trans "Summary" %}</label>
+                                                            <div class="row-sm">
+                                                                 <h5 class="text-white">{% if category.content != None %}{{ category.content }}{% else %}{% trans 'This category has no description.' %}{% endif %}</h5>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                        <h5 class="card-description">{% trans 'Products' %}</h5>
+                                                        <div class="table-responsive">
+                                                            {% if category.products.all %}
+                                                            <table class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th> {% trans "Product Name" %} </th>
+                                                                        <th> {% trans "Price" %} </th>
+                                                                        <th> {% trans "Created by" %} </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {% for product in category.products.all|dictsort:"title" %}
+                                                                    <tr>
+                                                                        <td>
+                                                                        {% if LANGUAGE_CODE != 'ar' %}
+                                                                            <span class="pl-2"><a href="{% url 'product_detail' product.slug %}" title="{{ product.ar_title | title }}">{{ product.title | title }}<a/></span>
+                                                                        {% else %}
+                                                                            <span class="pl-2"><a href="{% url 'product_detail' product.slug %}" title="{{ product.title | title }}">{{ product.ar_title | title }}<a/></span>
+                                                                        {% endif %}
+                                                                        </td>
+                                                                        <td>
+                                                                            <span class="badge badge-outline-success">{{ product.price }} {% trans "SAR" %}</span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="pl-2">{{ product.createdBy.first_name }} {{ product.createdBy.last_name }}</div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    {% endfor %}
+                                                                </tbody>
+                                                            </table>
+                                                            {% else %}
+                                                            <p>{% trans 'There is no products yet in this category' %} '{{category.title}}'</p>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <a href="{% url 'category_detail' category.slug %}" class="btn btn-inverse-primary">{% trans "Update" %}</a>
+                                                        <a href="{% url 'delete_category' category.slug %}" class="btn btn-inverse-danger">{% trans "Delete" %}</a>
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h5>Revenue</h5>
+                <div class="row">
+                    <div class="col-8 col-sm-12 col-xl-8 my-auto">
+                        <div class="d-flex d-sm-block d-md-flex align-items-center">
+                            <h2 class="mb-0">$32123</h2>
+                            <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p>
+                        </div>
+                        <h6 class="text-muted font-weight-normal">11.38% Since last month</h6>
+                    </div>
+                    <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+                        <i class="icon-lg mdi mdi-codepen text-primary ml-auto"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h5>Sales</h5>
+                <div class="row">
+                    <div class="col-8 col-sm-12 col-xl-8 my-auto">
+                        <div class="d-flex d-sm-block d-md-flex align-items-center">
+                            <h2 class="mb-0">$45850</h2>
+                            <p class="text-success ml-2 mb-0 font-weight-medium">+8.3%</p>
+                        </div>
+                        <h6 class="text-muted font-weight-normal"> 9.61% Since last month</h6>
+                    </div>
+                    <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+                        <i class="icon-lg mdi mdi-wallet-travel text-danger ml-auto"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h5>Purchase</h5>
+                <div class="row">
+                    <div class="col-8 col-sm-12 col-xl-8 my-auto">
+                        <div class="d-flex d-sm-block d-md-flex align-items-center">
+                            <h2 class="mb-0">$2039</h2>
+                            <p class="text-danger ml-2 mb-0 font-weight-medium">-2.1% </p>
+                        </div>
+                        <h6 class="text-muted font-weight-normal">2.27% Since last month</h6>
+                    </div>
+                    <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+                        <i class="icon-lg mdi mdi-monitor text-success ml-auto"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock contant %}

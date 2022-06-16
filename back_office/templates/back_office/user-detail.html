@@ -1,0 +1,30 @@
+{% extends 'back_office/base.html'%}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block contant %}
+{# <!-- Get language code as LANGUAGE_CODE --> #}
+{% get_current_language as LANGUAGE_CODE %}
+
+<div class="row ">
+    <div class="col-sm grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{ title }} {{ user.last_name }} | {% trans "Details" %}</h4>
+                <p class="card-description">{{ user.email }}</p>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-inverse-danger">{% trans "Delete" %}</a>
+                        <input type="submit"name="_save" value="{% trans 'Save' %}" class="btn btn-inverse-primary">
+                        <input type="submit" name="_continue" value="{% trans 'Save and continue editing' %}" class="btn btn-inverse-primary">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock contant %}

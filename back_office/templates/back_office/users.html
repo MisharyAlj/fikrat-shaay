@@ -1,0 +1,363 @@
+{% extends 'back_office/base.html'%}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block contant %}
+<!-- Modal -->
+{% trans "New user" as title %}
+{% trans "Create new employee or user." as desc %}
+{% include 'common/modal.html' with title=utitleser modalDesc=desc for='user' %}
+{% include 'common/filter_modal.html' %}
+<div class="row">
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+                            <h3 class="mb-0">10</h3>
+                            <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="icon icon-box-success ">
+                            <span class="mdi mdi-arrow-top-right icon-item"></span>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-muted font-weight-normal">Number of employees</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+                            <h3 class="mb-0">$17.34</h3>
+                            <p class="text-success ml-2 mb-0 font-weight-medium">+11%</p>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="icon icon-box-success">
+                            <span class="mdi mdi-arrow-top-right icon-item"></span>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-muted font-weight-normal">Revenue current</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+
+                            
+                            <h3 class="mb-0">0.00 SAR</h3>
+                            <p class="text-danger ml-2 mb-0 font-weight-medium">-2.4%</p>
+                            
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="icon icon-box-danger">
+                            <span class="mdi mdi-arrow-bottom-left icon-item"></span>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-muted font-weight-normal">Daily Income</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+                            <h3 class="mb-0">$31.53</h3>
+                            <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="icon icon-box-success ">
+                            <span class="mdi mdi-arrow-top-right icon-item"></span>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-muted font-weight-normal">Expense current</h6>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row ">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{% trans "Users" %}</h4>
+                <!-- Button trigger modal -->
+                <button class="btn btn-inverse-primary btn-fw mr-2" data-toggle="modal" data-target="#commonModal">{% trans "Add user" %}</button>
+                <button class="btn btn-inverse-primary btn-fw mr-2" data-toggle="modal" data-target="#commonFilterModal">{% trans "filter" %}</button>
+                {% if users %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div class="form-check form-check-muted m-0 p-0">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input">
+                                        </label>
+                                    </div>
+                                </th>
+                                <th> {% trans "Name" %} </th>
+                                <th> {% trans "Phone" %} </th>
+                                <th> {% trans "Occupation" %} </th>
+                                <th> {% trans "Salary" %} </th>
+                                <th style="text-transform: capitalize;">{% trans "active" %}</th>
+                                <th><i class="mdi mdi-eye btn-icon-prepend"> </i>{% trans "View" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                            <tr>
+                                <td>
+                                    <div class="form-check form-check-muted m-0 p-0">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input">
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="{% url 'user_detail' user.id %}" class="btn btn-link">{{ user.first_name | title }} {{ user.last_name | title }}</a>
+                                </td>
+                                <td>
+                                    <div class="pl-2">{{ user.phone }}</div>
+                                </td>
+                                <td>
+                                    <div class="pl-2">{{ user.occupation }}</div>
+                                </td>
+                                <td>
+                                    <div class="pl-2">{{ user.salary }} {% trans 'SAR' %}</div>
+                                </td>
+                                <td>
+                                    {% if user.is_active%}
+                                    <div class="pl-2"><span class="mdi mdi-check-circle text-success"></span></div>
+                                    {% else %}
+                                    <div class="pl-2"><span class="mdi mdi-close-circle text-danger"></span></div>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#{{ user.first_name }}{{ user.id }}">
+                                        <i class="mdi mdi-eye btn-icon-prepend"></i></button>
+                                    <!-- Modal --> 
+                                    <div class="modal fade" id="{{ user.first_name }}{{ user.id }}" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl">
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true" class="text-white">&times;</span>
+                                                        </button>
+                                                        <h4 class="card-title">{{ user.first_name | title }} {{ user.last_name | title }}</h4>
+                                                        <p class="text-muted" >
+                                                        {{user.email}}</p>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <h5 class="card-description" style="text-transform: capitalize;">{% trans 'personal info' %}</h5>
+                                                        <form id="user-form" action="" class="mb-4">
+                                                            {% csrf_token %}
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                  <div class="form-group row">
+                                                                    <label class="col-sm col-form-label text-muted" style="text-transform: capitalize;">{% trans 'first name'%}</label>
+                                                                    <div class="row-sm">
+                                                                      <h5 class="text-white">{{ user.first_name | title }}</h5>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                  <div class="form-group row">
+                                                                    <label class="col-sm col-form-label text-muted" style="text-transform: capitalize;">{% trans 'last name'%}</label>
+                                                                    <div class="row-sm">
+                                                                      <h5 class="text-white">{{ user.last_name | title }}</h5>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm col-form-label text-muted" style="text-transform: capitalize;">{% trans "email" %}</label>
+                                                                <div class="row-sm">
+                                                                    <h5 class="text-white">{{ user.email }}</h5>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                  <div class="form-group row">
+                                                                    <label class="col-sm col-form-label text-muted">{% trans "National ID" %}</label>
+                                                                    <div class="row-sm">
+                                                                      <h5 class="text-white">{{ user.nationality_id }}</h5>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                  <div class="form-group row">
+                                                                    <label class="col-sm col-form-label text-muted">{% trans "Phone" %}</label>
+                                                                    <div class="row-sm">
+                                                                      <h5 class="text-white">{{ user.phone }}</h5>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                            </div>
+                                                            <hr>
+                                                            <h5 class="card-description" style="text-transform: capitalize;">{% trans 'jop info' %}</h5>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                  <div class="form-group row">
+                                                                    <label for="exampleInputUsername1" class="col-sm col-form-label text-muted">{% trans "Occupation" %}</label>
+                                                                    <div class="row-sm">
+                                                                      <h5 class="text-white" style="text-transform: capitalize;">{{ user.occupation }}</h5>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                  <div class="form-group row">
+                                                                    <label for="exampleInputUsername1" class="col-sm col-form-label text-muted">{% trans "Salary" %}</label>
+                                                                    <div class="row-sm">
+                                                                      <h5 class="text-white">{{ user.salary }} {% trans "SAR" %}</h5>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                            </div>
+                                                            <h5 class="card-description" style="text-transform: capitalize;"    >{% trans 'permissions' %}</h5>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm col-form-label text-muted" style="text-transform: capitalize;">{% trans "active" %}</label>
+                                                                        <div class="row-sm">
+                                                                            {% if user.is_active%}
+                                                                            <span class="mdi mdi-check-circle text-success"></span>
+                                                                            {% else %}
+                                                                            <span class="mdi mdi-close-circle text-danger"></span>
+                                                                            {% endif %}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                  <div class="form-group row">
+                                                                    <label class="col-sm col-form-label text-muted" style="text-transform: capitalize;">{% trans "staff status" %}</label>
+                                                                    <div class="row-sm">
+                                                                        {% if user.is_active%}
+                                                                        <span class="mdi mdi-check-circle text-success"></span>
+                                                                        {% else %}
+                                                                        <span class="mdi mdi-close-circle text-danger"></span>
+                                                                        {% endif %}
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                            </div>
+                                                            <h5 class="card-description">{% trans 'Important dates' %}</h5>
+                                                            <div class="row">
+                                                                <div class="col-sm">
+                                                                    <p class="text-white" style="text-transform: capitalize;">{% trans "date joined" %}<span class="btn btn-link" title="Popover title">{{ user.date_joined }}.</span></p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm">
+                                                                    <p class="text-white" style="text-transform: capitalize;">{% trans "Last update" %}<span class="btn btn-link" title="Popover title">{{ user.last_login }}.</span></p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <a href="{% url 'user_detail' user.id %}" type="submit" class="btn btn-inverse-primary btn-fw">{% trans "Update" %}</a>
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="container align-items-center  text-center">
+                    <h5 class="text-muted mb-4 mt-4">{% trans "Sorry about that lock's like there is no products!" %}</h5>
+                    <div class="d-flex justify-content-center">
+                        <img class="img-fluid" alt="No invoices" src="{% static 'back_office/assets/images/main/read.png' %}"/>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock contant %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        /* On submiting the form, send the POST ajax
+        request to server and after successfull submission
+        display the object. */
+        $("#user-form").submit(function (e) {
+            // preventing from page reload and default actions
+            e.preventDefault();
+            // serialize the data for sending the form data.
+            var serializedData = $(this).serialize();
+            console.log("test")
+            // make POST ajax call
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'categories' %}",
+                data: serializedData,
+                success: function (response) {
+                    // on successfull creating object
+                    // 1. clear the form.
+                    $("#user-form").trigger('reset');
+                    // 2. focus to nickname input 
+                    $("#id_title").focus();
+
+                    // display the newly friend to table.
+                    var instance = JSON.parse(response["instance"]);
+                    var fields = instance[0]["fields"];
+                    $("tbody").prepend(
+
+                        `<tr>
+                            <td>
+                                <div class="form-check form-check-muted m-0">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input">
+                                                    <i class="input-helper"></i>
+                                                </label>
+                                            </div>
+                            </td>
+                            <td>
+                                <span class="pl-2">${fields["title"] || ""}</span>
+                            </td>
+                            <td>
+                                <div class="badge badge-outline-success">${fields["content"] || "This Category has no description."}
+                                </div>
+                             </td>
+                        </tr>`
+                    )
+                },
+                error: function (response) {
+                    // alert the error if any error occured
+                    alert(response["responseJSON"]["error"]);
+                }
+            })
+        })
+    });
+</script>
+{% endblock scripts %}

@@ -1,0 +1,234 @@
+{% extends 'back_office/base.html'%}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block contant %}
+{# <!-- Get language code as LANGUAGE_CODE --> #}
+{% get_current_language as LANGUAGE_CODE %}
+<!-- Modal -->
+{% trans "New product" as title %}
+{% include 'common/modal.html' with title=title  for='product' %}
+{% include 'common/filter_modal.html' %}
+
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{% trans "Products" %}</h4>
+                <!-- Button trigger modal -->
+                <button class="btn btn-inverse-primary btn-fw mr-2" data-toggle="modal" data-target="#commonModal">{% trans "Add Product" %}</button>
+                <button class="btn btn-inverse-primary btn-fw mr-2" data-toggle="modal" data-target="#commonFilterModal">{% trans "Filter" %}</button>
+                {% if products %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div class="form-check form-check-muted m-0 p-0">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input">
+                                        </label>
+                                    </div>
+                                </th>
+                                <th> {% trans "Product Name" %} </th>
+                                <th> {% trans "Category" %} </th>
+                                <th> {% trans "Price" %} </th>
+                                <th><i class="mdi mdi-delete btn-icon-prepend"></i>{% trans "Delete" %} <i class="mdi mdi-eye btn-icon-prepend"></i>{% trans "View" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in products %}
+                            <tr>
+                                <td>
+                                    <div class="form-check form-check-muted m-0 p-0">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input">
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    {% if LANGUAGE_CODE != 'ar' %}
+                                    <a href="{% url 'product_detail' product.slug %}" class="btn btn-link" title="{{ product.ar_title | title }}">{{ product.title | title }}</a>
+                                    {% else %}
+                                    <a href="{% url 'product_detail' product.slug %}" class="btn btn-link" title="{{ product.title | title }}">{{ product.ar_title | title }}</button>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <span class="pl-2">{{ product.category | title }}</span>
+                                </td>
+                                <td>
+                                    <span class="pl-2">{{ product.price }} {% trans 'SAR' %}</span>
+                                </td>
+                                <td>
+                                    <a href="{% url 'delete_product' product.slug %}" class="btn btn-outline-danger">
+                                        <i class="mdi mdi-delete btn-icon-prepend"></i></a>
+                                        
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#{{ product.slug }}" title="{{ product.title | title }}" >
+                                        <i class="mdi mdi-eye btn-icon-prepend"></i></button>
+                                    <!-- Modal --> 
+                                    <div class="modal fade" id="{{ product.slug }}" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl">
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true" class="text-white">&times;</span>
+                                                        </button>
+                                                        {% get_current_language as LANGUAGE_CODE %}
+                                                        <h4 class="card-title">{% if LANGUAGE_CODE != 'ar' %}{{product.title}}{% else %}{{ product.ar_title }}{% endif %}</h4>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                              <div class="form-group row">
+                                                                <label class="row-sm-12 col-form-label">العنوان</label>
+                                                                <div class="row-sm-12">
+                                                                  <h5 class="text-white" title="{{ product.ar_title }}">{{ product.ar_title }}</h5>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                              <div class="form-group row">
+                                                                <label for="exampleInputUsername1" class="row-sm-12 col-form-label">English title</label>
+                                                                <div class="row-sm-12">
+                                                                  <h5 class="text-white">{{ product.title }}</h5>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                              <div class="form-group row">
+                                                                <label class="row-sm-12 col-form-label">{% trans "Price" %}</label>
+                                                                <div class="row-sm-12">
+                                                                  <h5 class="text-white">{{ product.price }} {% trans 'SAR'%}</h5>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                              <div class="form-group row">
+                                                                <label for="exampleInputUsername1" class="row-sm-12 col-form-label">{% trans "Category" %}</label>
+                                                                <div class="row-sm-12">
+                                                                    {% if LANGUAGE_CODE != 'ar' %}
+                                                                    <h5 class="text-white" title="{{ product.category.ar_title }}">{{ product.category.title }}</h5>
+                                                                    {% else %}
+                                                                    <h5 class="text-white" title="{{ product.category.title }}">{{ product.category.ar_title }}</h5>
+                                                                    {% endif %}
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="row-sm-12 col-form-label" for="exampleInputPassword1">{% trans "Summary" %}</label>
+                                                            <div class="row-sm-12">
+                                                                <h5 class="text-white">{% if product.summary != None %}{{ product.summary }}{% else %}{% trans 'This product has no summary.' %}{% endif %}</h5>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                        <h5 class="card-description">{% trans 'Important dates' %}</h5>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <p>{% trans "Created at" %}<span class="btn btn-link" title="Popover title">{{ product.createdAt }}.</span></p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <p>{% trans "Last update" %}<span class="btn btn-link" title="Popover title">{{ product.updatedAt }}.</span></p>
+                                                            </div>
+                                                        </div>
+                                                        <p>{% trans "Created by" %}<a href="{% url 'users' %}" role="button" class="btn btn-link" title="Popover title" data-content="Popover body content is set in this attribute.">{{product.createdBy.first_name}}.</a></p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <a href="{% url 'product_detail' product.slug %}" class="btn btn-inverse-primary">{% trans "Update" %}</a>
+                                                        <a href="{% url 'delete_product' product.slug %}" class="btn btn-inverse-danger">{% trans "Delete" %}</a>
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="container align-items-center text-center">
+                    <h5 class="text-muted mb-4 mt-4">{% trans "Sorry about that lock's like there is no products!" %}</h5>
+                    <div class="d-flex justify-content-center">
+                        <img class="img-fluid" alt="No invoices" src="{% static 'back_office/assets/images/main/read.png' %}"/>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock contant %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        /* On submiting the form, send the POST ajax
+        request to server and after successfull submission
+        display the object. */
+        $("#product-form").submit(function (e) {
+            // preventing from page reload and default actions
+            e.preventDefault();
+            // serialize the data for sending the form data.
+            var serializedData = $(this).serialize();
+            console.log("test")
+            // make POST ajax call
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'products' %}",
+                data: serializedData,
+                success: function (response) {
+                    // on successfull creating object
+                    // 1. clear the form.
+                    $("#product-form").trigger('reset');
+                    // 2. focus to nickname input 
+                    $("#id_title").focus();
+
+                    // display the newly friend to table.
+                    var instance = JSON.parse(response["instance"]);
+                    var fields = instance[0]["fields"];
+                    $("tbody").prepend(
+
+                        `<tr>
+                                <td>
+                                    <div class="form-check form-check-muted m-0">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input">
+                                            <i class="input-helper"></i>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="pl-2">${fields["title"] || ""}</span>
+                                </td>
+                                <td>
+                                    <div>${fields["summary"] || "No summary"}</div>
+                                </td>
+                                <td>
+                                    <div class="badge badge-outline-success">${fields["price"] || "0.00 SAR"} SAR</div>
+                                </td>
+                                <td>
+                                    <span class="pl-2">${fields["category"] || ""}</span>
+                                </td>
+                        </tr>`
+                    )
+                },
+                error: function (response) {
+                    // alert the error if any error occured
+                    alert(response["responseJSON"]["error"]);
+                }
+            })
+        })
+    });
+</script>
+{% endblock scripts %}

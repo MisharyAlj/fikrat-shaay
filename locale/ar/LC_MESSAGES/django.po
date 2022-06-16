@@ -1,0 +1,594 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-16 22:15+0300\n"
+"PO-Revision-Date: 2022-06-16 22:28+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#: .\Users\forms.py:8
+msgid "National ID or email"
+msgstr "الهوية الوطنية أو البريد الإلكتروني"
+
+#: .\Users\forms.py:10
+msgid "Password"
+msgstr "كلمة المرور"
+
+#: .\Users\forms.py:12
+msgid "Remember me"
+msgstr "تذكرني"
+
+#: .\Users\managers.py:27
+msgid "The Email must be set"
+msgstr "يجب تعيين البريد الإلكتروني"
+
+#: .\Users\managers.py:44
+msgid "Superuser must have is_staff=True."
+msgstr "يجب أن يكون لدى المستخدم المتميز is_staff = True."
+
+#: .\Users\managers.py:46
+msgid "Superuser must have is_superuser=True."
+msgstr "يجب أن يكون لدى المستخدم المتميز is_superuser = Treu."
+
+#: .\Users\models.py:14
+msgid "email address"
+msgstr "البريد الكتروني"
+
+#: .\Users\models.py:17 .\back_office\templates\back_office\users.html:203
+msgid "National ID"
+msgstr "الهوية الوطنية"
+
+#: .\Users\models.py:18 .\back_office\templates\back_office\users.html:119
+#: .\back_office\templates\back_office\users.html:223
+msgid "Occupation"
+msgstr "المهنة"
+
+#: .\Users\models.py:19 .\back_office\templates\back_office\users.html:120
+#: .\back_office\templates\back_office\users.html:231
+msgid "Salary"
+msgstr "الراتب"
+
+#: .\Users\templates\Users\base.html:10
+#: .\back_office\templates\back_office\base.html:48
+#: .\templates\main_site\base.html:7 .\templates\main_site\base.html:61
+#: .\templates\main_site\base.html:148 .\templates\main_site\base.html:192
+#: .\templates\rest_framework\api.html:27
+msgid "Fikrat Shaay"
+msgstr "فكرة شاي"
+
+#: .\Users\templates\Users\base.html:45 .\Users\templates\Users\sign_in.html:14
+msgid "Sign in"
+msgstr "تسجيل الدخول"
+
+#: .\Users\templates\Users\sign_in.html:12
+msgid "Forgot password?"
+msgstr "هل نسيت كلمة المرور؟"
+
+#: .\Users\templates\Users\sign_in.html:16
+msgid "Back to"
+msgstr "الرجوع الى"
+
+#: .\Users\templates\Users\sign_in.html:16
+msgid "Tea Idea"
+msgstr "فكرة الشاي"
+
+#: .\Users\views.py:45
+msgid "Your loged in seccsesfully."
+msgstr "لقد قمت بتسجيل الدخول بنجاح."
+
+#: .\Users\views.py:52
+msgid "Incorrect national ID/email or password."
+msgstr "الهوية الوطنية/البريد الإلكتروني أو كلمة المرور غير صحيحة."
+
+#: .\Users\views.py:57
+msgid "Backoffice sign in"
+msgstr "تسجيل الدخول الى المكتب الخلفي"
+
+#: .\Users\views.py:73
+msgid "You are logedout succssessuly."
+msgstr "لقد قمت بتسجيل الخروج بنجاح."
+
+#: .\back_office\templates\back_office\analytics.html:74
+#: .\back_office\templates\back_office\base.html:109 .\back_office\views.py:65
+msgid "analytics"
+msgstr "التحليلات"
+
+#: .\back_office\templates\back_office\base.html:10
+#: .\back_office\templates\back_office\base.html:121
+msgid "Fikrat shaay"
+msgstr "فكرة شاي"
+
+#: .\back_office\templates\back_office\base.html:10
+msgid "back office"
+msgstr "المكتب الخلفي"
+
+#: .\back_office\templates\back_office\base.html:64 .\back_office\views.py:42
+msgid "Dashboard"
+msgstr "الصفحة الرئيسية"
+
+#: .\back_office\templates\back_office\base.html:73
+#: .\back_office\templates\back_office\users.html:101
+msgid "Users"
+msgstr "المستخدمين"
+
+#: .\back_office\templates\back_office\base.html:82
+#: .\back_office\templates\back_office\categories.html:17
+#: .\back_office\views.py:164
+msgid "Categories"
+msgstr "الأقسام"
+
+#: .\back_office\templates\back_office\base.html:91
+#: .\back_office\templates\back_office\categories.html:89
+#: .\back_office\templates\back_office\category-detail.html:25
+#: .\back_office\templates\back_office\invoices.html:91
+#: .\back_office\templates\back_office\products.html:18
+#: .\back_office\views.py:261
+msgid "Products"
+msgstr "المنتجات"
+
+#: .\back_office\templates\back_office\base.html:100
+#: .\back_office\templates\back_office\invoices.html:13
+#: .\back_office\views.py:357
+msgid "invoices"
+msgstr "الفواتير"
+
+#: .\back_office\templates\back_office\base.html:113
+msgid "Links"
+msgstr "الروابط"
+
+#: .\back_office\templates\back_office\base.html:158
+msgid "Create New..."
+msgstr "أنشئ"
+
+#: .\back_office\templates\back_office\base.html:168
+#: .\back_office\templates\back_office\users.html:8
+msgid "New user"
+msgstr "المستخدمين"
+
+#: .\back_office\templates\back_office\base.html:179
+#: .\back_office\templates\back_office\categories.html:8
+msgid "New category"
+msgstr "قسم جديد"
+
+#: .\back_office\templates\back_office\base.html:190
+#: .\back_office\templates\back_office\products.html:10
+msgid "New product"
+msgstr "منتج جديد"
+
+#: .\back_office\templates\back_office\base.html:339
+msgid "Change Password"
+msgstr "تغير كلمة المرور"
+
+#: .\back_office\templates\back_office\base.html:350
+msgid "Log out"
+msgstr "تسجيل الخروج"
+
+#: .\back_office\templates\back_office\categories.html:9
+msgid "Create new category."
+msgstr "إنشاء قسم جديدة."
+
+#: .\back_office\templates\back_office\categories.html:19
+msgid "Add category"
+msgstr "إضافة قسم"
+
+#: .\back_office\templates\back_office\categories.html:24
+#: .\back_office\templates\back_office\category-detail.html:89
+#: .\back_office\templates\back_office\products.html:35
+#: .\back_office\templates\back_office\products.html:113
+#: .\products\models.py:32
+msgid "Category"
+msgstr "القسم"
+
+#: .\back_office\templates\back_office\categories.html:25
+#: .\products\models.py:16
+msgid "Content"
+msgstr "المحتوى"
+
+#: .\back_office\templates\back_office\categories.html:26
+#: .\back_office\templates\back_office\categories.html:127
+#: .\back_office\templates\back_office\category-detail.html:20
+#: .\back_office\templates\back_office\category-detail.html:119
+#: .\back_office\templates\back_office\product-detail.html:20
+#: .\back_office\templates\back_office\products.html:37
+#: .\back_office\templates\back_office\products.html:144
+#: .\back_office\templates\back_office\user-detail.html:20
+msgid "Delete"
+msgstr "حذف"
+
+#: .\back_office\templates\back_office\categories.html:26
+#: .\back_office\templates\back_office\invoices.html:31
+#: .\back_office\templates\back_office\products.html:37
+#: .\back_office\templates\back_office\users.html:122
+msgid "View"
+msgstr "عرض"
+
+#: .\back_office\templates\back_office\categories.html:41
+#: .\back_office\templates\back_office\category-detail.html:15
+msgid "This category has no discription."
+msgstr "هذا القسم ليس له وصف."
+
+#: .\back_office\templates\back_office\categories.html:61
+#: .\back_office\templates\back_office\categories.html:85
+msgid "This category has no description."
+msgstr "هذا القسم ليس له وصف."
+
+#: .\back_office\templates\back_office\categories.html:83
+#: .\back_office\templates\back_office\category-detail.html:101
+#: .\back_office\templates\back_office\products.html:125
+#: .\products\models.py:37
+msgid "Summary"
+msgstr "ملخص"
+
+#: .\back_office\templates\back_office\categories.html:95
+#: .\back_office\templates\back_office\category-detail.html:31
+#: .\back_office\templates\back_office\products.html:34
+msgid "Product Name"
+msgstr "اسم المنتج"
+
+#: .\back_office\templates\back_office\categories.html:96
+#: .\back_office\templates\back_office\category-detail.html:32
+#: .\back_office\templates\back_office\category-detail.html:81
+#: .\back_office\templates\back_office\invoices.html:99
+#: .\back_office\templates\back_office\products.html:36
+#: .\back_office\templates\back_office\products.html:105
+#: .\products\models.py:39
+msgid "Price"
+msgstr "السعر"
+
+#: .\back_office\templates\back_office\categories.html:97
+#: .\back_office\templates\back_office\category-detail.html:34
+#: .\back_office\templates\back_office\category-detail.html:116
+#: .\back_office\templates\back_office\invoices.html:135
+#: .\back_office\templates\back_office\product-detail.html:33
+#: .\back_office\templates\back_office\products.html:140
+#: .\products\models.py:41
+msgid "Created by"
+msgstr "أنشئ بواسطة"
+
+#: .\back_office\templates\back_office\categories.html:111
+#: .\back_office\templates\back_office\category-detail.html:83
+#: .\back_office\templates\back_office\category-detail.html:129
+#: .\back_office\templates\back_office\index.html:171
+#: .\back_office\templates\back_office\invoices.html:48
+#: .\back_office\templates\back_office\invoices.html:78
+#: .\back_office\templates\back_office\invoices.html:113
+#: .\back_office\templates\back_office\products.html:61
+#: .\back_office\templates\back_office\products.html:107
+#: .\back_office\templates\back_office\users.html:145
+#: .\back_office\templates\back_office\users.html:233
+#: .\templates\main_site\menu.html:31
+msgid "SAR"
+msgstr "ريال"
+
+#: .\back_office\templates\back_office\categories.html:121
+#: .\back_office\templates\back_office\category-detail.html:142
+msgid "There is no products yet in this category"
+msgstr "لا توجد منتجات حتى الآن في هذه الفئة"
+
+#: .\back_office\templates\back_office\categories.html:126
+#: .\back_office\templates\back_office\category-detail.html:118
+#: .\back_office\templates\back_office\products.html:143
+#: .\back_office\templates\back_office\users.html:277
+msgid "Update"
+msgstr "تحديث"
+
+#: .\back_office\templates\back_office\categories.html:128
+#: .\back_office\templates\back_office\category-detail.html:120
+#: .\back_office\templates\back_office\category-detail.html:165
+#: .\back_office\templates\back_office\products.html:145
+#: .\back_office\templates\back_office\users.html:278
+#: .\templates\common\modal.html:22
+msgid "Close"
+msgstr "اغلاق"
+
+#: .\back_office\templates\back_office\category-detail.html:14
+#: .\back_office\templates\back_office\product-detail.html:14
+#: .\back_office\templates\back_office\user-detail.html:14
+msgid "Details"
+msgstr "تفاصيل"
+
+#: .\back_office\templates\back_office\category-detail.html:21
+#: .\back_office\templates\back_office\product-detail.html:21
+#: .\back_office\templates\back_office\user-detail.html:21
+msgid "Save"
+msgstr "حفظ"
+
+#: .\back_office\templates\back_office\category-detail.html:22
+#: .\back_office\templates\back_office\product-detail.html:22
+#: .\back_office\templates\back_office\user-detail.html:22
+msgid "Save and continue editing"
+msgstr "حفظ ومتابعة التعديل"
+
+#: .\back_office\templates\back_office\category-detail.html:33
+#: .\back_office\templates\back_office\category-detail.html:110
+#: .\back_office\templates\back_office\invoices.html:129
+#: .\back_office\templates\back_office\product-detail.html:27
+#: .\back_office\templates\back_office\products.html:134
+msgid "Created at"
+msgstr "أنشئ في"
+
+#: .\back_office\templates\back_office\category-detail.html:103
+#: .\back_office\templates\back_office\product-detail.html:15
+#: .\back_office\templates\back_office\products.html:127
+msgid "This product has no summary."
+msgstr "هذا المنتج ليس لديه ملخص."
+
+#: .\back_office\templates\back_office\category-detail.html:107
+#: .\back_office\templates\back_office\invoices.html:126
+#: .\back_office\templates\back_office\product-detail.html:24
+#: .\back_office\templates\back_office\products.html:131
+#: .\back_office\templates\back_office\users.html:265
+msgid "Important dates"
+msgstr "تواريخ مهمة"
+
+#: .\back_office\templates\back_office\category-detail.html:113
+#: .\back_office\templates\back_office\invoices.html:132
+#: .\back_office\templates\back_office\product-detail.html:30
+#: .\back_office\templates\back_office\products.html:137
+#: .\back_office\templates\back_office\users.html:273
+msgid "Last update"
+msgstr "اخر تحديث"
+
+#: .\back_office\templates\back_office\category-detail.html:144
+msgid "Add product"
+msgstr "إضافة منتج"
+
+#: .\back_office\templates\back_office\category-detail.html:164
+#: .\templates\common\modal.html:21
+msgid "Add"
+msgstr "اضافة"
+
+#: .\back_office\templates\back_office\index.html:69
+msgid "Daily Income"
+msgstr "الدخل اليومي"
+
+#: .\back_office\templates\back_office\index.html:131
+msgid "Charts"
+msgstr "الرسوم البيانية"
+
+#: .\back_office\templates\back_office\index.html:151
+msgid "Latest invoices"
+msgstr "أحدث الفواتير"
+
+#: .\back_office\templates\back_office\index.html:156
+#: .\back_office\templates\back_office\users.html:117
+msgid "Name"
+msgstr "الأسم"
+
+#: .\back_office\templates\back_office\index.html:157
+#: .\back_office\templates\back_office\invoices.html:28 .\products\models.py:64
+msgid "invoice ID"
+msgstr "رقم الفاتورة"
+
+#: .\back_office\templates\back_office\index.html:158
+#: .\back_office\templates\back_office\invoices.html:29
+#: .\back_office\templates\back_office\invoices.html:76 .\products\models.py:65
+msgid "total"
+msgstr "إجمالي"
+
+#: .\back_office\templates\back_office\index.html:159
+#: .\back_office\templates\back_office\invoices.html:30
+#: .\back_office\templates\back_office\invoices.html:84 .\products\models.py:66
+msgid "payment type"
+msgstr "طريقة الدفع"
+
+#: .\back_office\templates\back_office\index.html:160
+msgid "date"
+msgstr "تاريخ"
+
+#: .\back_office\templates\back_office\invoices.html:15
+#: .\back_office\templates\back_office\products.html:21
+#: .\templates\common\filter_modal.html:14
+msgid "Filter"
+msgstr "مرشح"
+
+#: .\back_office\templates\back_office\invoices.html:98
+msgid "Product"
+msgstr "المنتج"
+
+#: .\back_office\templates\back_office\invoices.html:100
+#: .\products\models.py:99
+msgid "quantity"
+msgstr "الكمية"
+
+#: .\back_office\templates\back_office\invoices.html:153
+msgid "Sorry about that lock's like there is no invoices!"
+msgstr "نأسف على ما يبدو أنه لا توجد فواتير!"
+
+#: .\back_office\templates\back_office\products.html:20
+msgid "Add Product"
+msgstr "إضافة منتج"
+
+#: .\back_office\templates\back_office\products.html:159
+#: .\back_office\templates\back_office\users.html:294
+msgid "Sorry about that lock's like there is no products!"
+msgstr "نأسف على ما يبدو أنه لا توجد منتجات!"
+
+#: .\back_office\templates\back_office\users.html:9
+msgid "Create new employee or user."
+msgstr "إنشاء موظف أو مستخدم جديد."
+
+#: .\back_office\templates\back_office\users.html:103
+msgid "Add user"
+msgstr "إضافة مستخدم"
+
+#: .\back_office\templates\back_office\users.html:104
+msgid "filter"
+msgstr "مرشح"
+
+#: .\back_office\templates\back_office\users.html:118
+#: .\back_office\templates\back_office\users.html:211
+msgid "Phone"
+msgstr "رقم الجوال"
+
+#: .\back_office\templates\back_office\users.html:121
+#: .\back_office\templates\back_office\users.html:242
+msgid "active"
+msgstr "نشط"
+
+#: .\back_office\templates\back_office\users.html:173
+msgid "personal info"
+msgstr "معلومات شخصية"
+
+#: .\back_office\templates\back_office\users.html:179
+msgid "first name"
+msgstr "الاسم الاول"
+
+#: .\back_office\templates\back_office\users.html:187
+msgid "last name"
+msgstr "الاسم الاخير"
+
+#: .\back_office\templates\back_office\users.html:195
+msgid "email"
+msgstr "البريد الإلكتروني"
+
+#: .\back_office\templates\back_office\users.html:219
+msgid "jop info"
+msgstr "معلومات الوظيفة"
+
+#: .\back_office\templates\back_office\users.html:238
+msgid "permissions"
+msgstr ""
+
+#: .\back_office\templates\back_office\users.html:254
+msgid "staff status"
+msgstr ""
+
+#: .\back_office\templates\back_office\users.html:268
+msgid "date joined"
+msgstr ""
+
+#: .\back_office\views.py:93
+msgid "users"
+msgstr "المستخدمين"
+
+#: .\back_office\views.py:117
+msgid "The user was updated seccesfuly."
+msgstr "تم تحديث المستخدم بنجاح."
+
+#: .\back_office\views.py:190
+msgid "The category was updated seccesfuly."
+msgstr "تم تحديث الفئة بنجاح."
+
+#: .\back_office\views.py:220
+msgid "The catecory was deleted seccesfuly."
+msgstr "تم حذف الفئة بنجاح."
+
+#: .\back_office\views.py:285
+msgid "The product was updated seccesfuly."
+msgstr "تم تحديث المنتج بنجاح."
+
+#: .\back_office\views.py:313
+msgid "The product was deleted seccesfuly."
+msgstr "تم حذف المنتج بنجاح."
+
+#: .\back_office\views.py:378 .\templates\main_site\base.html:67
+#: .\templates\main_site\base.html:115
+msgid "Menu"
+msgstr "القائمة"
+
+#: .\products\filters.py:9 .\products\models.py:10 .\products\models.py:33
+msgid "Title"
+msgstr "العنوان"
+
+#: .\products\filters.py:11 .\products\filters.py:23
+msgid "Start date"
+msgstr "من  تاريخ"
+
+#: .\products\filters.py:13 .\products\filters.py:25
+msgid "End date"
+msgstr "الى تاريخ"
+
+#: .\products\models.py:12 .\products\models.py:35
+msgid "Arabic title"
+msgstr ""
+
+#: .\products\models.py:58
+msgid "Cash"
+msgstr "نقد"
+
+#: .\products\models.py:59
+msgid "Debit Card"
+msgstr "بطاقة إئتمان"
+
+#: .\rest_api\views.py:206
+msgid "Sucessfully logged out"
+msgstr "تم تسجيل الخروج بنجاح"
+
+#: .\rest_api\views.py:215
+msgid "Password was changed sucessfully."
+msgstr "تم تغيير كلمة المرور بنجاح."
+
+#: .\templates\main_site\base.html:62 .\templates\main_site\base.html:193
+msgid "Tea -- House"
+msgstr ""
+
+#: .\templates\main_site\base.html:68 .\templates\main_site\base.html:116
+msgid "Back office"
+msgstr "المكتب الخلفي"
+
+#: .\templates\main_site\base.html:85 .\templates\main_site\base.html:133
+msgid "Sign out"
+msgstr "تسجيل الخروج"
+
+#: .\templates\main_site\base.html:175
+msgid "Visit us"
+msgstr "زورنا"
+
+#: .\templates\main_site\base.html:175
+msgid "here"
+msgstr "هنا"
+
+#: .\templates\main_site\base.html:197
+msgid "Copyright"
+msgstr ""
+
+#: .\templates\main_site\base.html:198
+msgid "All rights reserved | This website is designed by"
+msgstr "جميع الحقوق محفوظة | تم تصميم هذا الموقع من قبل"
+
+#: .\templates\main_site\base.html:199
+msgid "and developed by"
+msgstr "وتم تطويره بواسطة"
+
+#: .\templates\main_site\base.html:199
+msgid "Mishary"
+msgstr "مشاري"
+
+#: .\templates\main_site\menu.html:10
+msgid "Discover Our Menu"
+msgstr "اكتشف قائمتنا"
+
+#~ msgid "Don't have an Account?"
+#~ msgstr "ليس لديك حساب؟"
+
+#~ msgid "Sign in to Fikrat Shaay"
+#~ msgstr "تسجل الدخول إلى فكرة شاي"
+
+#~ msgid "Update category"
+#~ msgstr "إضافة قسم"
+
+#~ msgid "Edit"
+#~ msgstr "تعديل"
+
+#~ msgid "Update product"
+#~ msgstr "إضافة منتج"
+
+#~ msgid "menu"
+#~ msgstr "القائمة"
+
+#~ msgid "Address"
+#~ msgstr "العنوان"

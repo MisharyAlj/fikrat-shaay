@@ -1,0 +1,236 @@
+{% extends 'back_office/base.html'%}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block contant %}
+<div class="page-header">
+  <h3 class="page-title"> Chart-js </h3>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Charts</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Chart-js</li>
+    </ol>
+  </nav>
+</div>
+<div class="row">
+  <div class="col-lg-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+        <h4 class="card-title">Line chart</h4>
+        <canvas id="salesChart" style="height: 362px; display: block; width: 725px;" width="725" height="362" class="chartjs-render-monitor"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+        <h4 class="card-title">Bar chart</h4>
+        <canvas id="d" style="height: 362px; display: block; width: 725px;" width="725" height="362" class="chartjs-render-monitor"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+        <h4 class="card-title">Area chart</h4>
+        <canvas id="sd" style="height: 362px; display: block; width: 725px;" width="725" height="362" class="chartjs-render-monitor"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+        <h4 class="card-title">Doughnut chart</h4>
+        <canvas id="transaction-history" style="height: 362px; display: block; width: 725px;" width="725" height="362" class="chartjs-render-monitor"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+        <h4 class="card-title">Pie chart</h4>
+        <canvas id="saleasChart" style="height: 362px; display: block; width: 725px;" width="725" height="362" class="chartjs-render-monitor"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+        <h4 class="card-title">Scatter chart</h4>
+        <canvas id="scatterChart" style="height: 362px; display: block; width: 725px;" width="725" height="362" class="chartjs-render-monitor"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row ">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{% trans "analytics" %}</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h5>Revenue</h5>
+                <div class="row">
+                    <div class="col-8 col-sm-12 col-xl-8 my-auto">
+                        <div class="d-flex d-sm-block d-md-flex align-items-center">
+                            <h2 class="mb-0">$32123</h2>
+                            <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p>
+                        </div>
+                        <h6 class="text-muted font-weight-normal">11.38% Since last month</h6>
+                    </div>
+                    <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+                        <i class="icon-lg mdi mdi-codepen text-primary ml-auto"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h5>Sales</h5>
+                <div class="row">
+                    <div class="col-8 col-sm-12 col-xl-8 my-auto">
+                        <div class="d-flex d-sm-block d-md-flex align-items-center">
+                            <h2 class="mb-0">$45850</h2>
+                            <p class="text-success ml-2 mb-0 font-weight-medium">+8.3%</p>
+                        </div>
+                        <h6 class="text-muted font-weight-normal"> 9.61% Since last month</h6>
+                    </div>
+                    <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+                        <i class="icon-lg mdi mdi-wallet-travel text-danger ml-auto"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h5>Purchase</h5>
+                <div class="row">
+                    <div class="col-8 col-sm-12 col-xl-8 my-auto">
+                        <div class="d-flex d-sm-block d-md-flex align-items-center">
+                            <h2 class="mb-0">$2039</h2>
+                            <p class="text-danger ml-2 mb-0 font-weight-medium">-2.1% </p>
+                        </div>
+                        <h6 class="text-muted font-weight-normal">2.27% Since last month</h6>
+                    </div>
+                    <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+                        <i class="icon-lg mdi mdi-monitor text-success ml-auto"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock contant %}
+
+{% block scripts %}
+
+<script>
+    let salesCtx = document.getElementById("salesChart").getContext("2d");
+    let salesChart = new Chart(salesCtx, {
+        type: "bar",
+        options: {
+            responsive: true,
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 25,
+                }
+            }
+        }
+    });
+    let spendPerCustomerCtx = document.getElementById("spendPerCustomerChart").getContext("2d");
+    let spendPerCustomerChart = new Chart(spendPerCustomerCtx, {
+        type: "line",
+        options: {
+            responsive: true,
+        }
+    });
+
+    let paymentMethodCtx = document.getElementById("paymentMethodChart").getContext("2d");
+    let paymentMethodChart = new Chart(paymentMethodCtx, {
+        type: "doughnut",
+        options: {
+            responsive: true,
+
+        }
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "/back_office/analytics/chart/filter-options/",
+            type: "GET",
+            dataType: "json",
+            success: (jsonResponse) => {
+                // Load all the options
+                jsonResponse.options.forEach(option => {
+                    $("#year").append(new Option(option, option));
+                });
+                // Load data for the first option
+                loadAllCharts($("#year").children().first().val());
+            },
+            error: () => console.log("Failed to fetch chart filter options!")
+        });
+    });
+
+    $("#filterForm").on("submit", (event) => {
+        event.preventDefault();
+
+        const year = $("#year").val();
+        loadAllCharts(year)
+    });
+
+    function loadChart(chart, endpoint) {
+        $.ajax({
+            url: endpoint,
+            type: "GET",
+            dataType: "json",
+            success: (jsonResponse) => {
+                // Extract data from the response
+                const title = jsonResponse.title;
+                const labels = jsonResponse.data.labels;
+                const datasets = jsonResponse.data.datasets;
+
+                // Reset the current chart
+                chart.data.datasets = [];
+                chart.data.labels = [];
+
+                // Load new data into the chart
+                chart.options.title.text = title;
+                chart.options.title.display = true;
+                chart.data.labels = labels;
+                datasets.forEach(dataset => {
+                    chart.data.datasets.push(dataset);
+                });
+                chart.update();
+            },
+            error: () => console.log("Failed to fetch chart data from " + endpoint + "!")
+        });
+    }
+
+    function loadAllCharts(year) {
+        loadChart(salesChart, `/back_office/analytics/chart/sales/${year}/`);
+        loadChart(spendPerCustomerChart, `/back_office/analytics/chart/spend-per-customer/${year}/`);
+        loadChart(paymentMethodChart, `/back_office/analytics/chart/payment-method/${year}/`);
+    }
+</script>
+{% endblock scripts %}

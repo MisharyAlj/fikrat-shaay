@@ -1,0 +1,16 @@
+
+
+{# COMMINT #}
+{% if messages %}
+{% for message in messages %}
+<div class="alert {% if message.tags %}{{ message.tags }}{% else %}alert-warning{% endif %} alert-dismissible fade show" role="alert">
+{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+    {{ message }}
+{% else %}
+    {{ message }}
+{% endif %}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+</div>
+{% endfor %}
+{% endif %}

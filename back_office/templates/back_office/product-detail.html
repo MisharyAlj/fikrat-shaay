@@ -1,0 +1,40 @@
+{% extends 'back_office/base.html'%}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block contant %}
+{# <!-- Get language code as LANGUAGE_CODE --> #}
+{% get_current_language as LANGUAGE_CODE %}
+
+<div class="row">
+    <div class="col-sm grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{% if LANGUAGE_CODE != 'ar' %}{{product.title}}{% else %}{{ product.ar_title }}{% endif %} | {% trans "Details" %}</h4>
+                <p class="card-description">{% if product.summary != None %}{{ product.summary }}{% else %}{% trans 'This product has no summary.' %}{% endif %}</p>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                    <div class="modal-footer">
+                        <a href="{% url 'delete_product' product.slug %}" class="btn btn-inverse-danger">{% trans "Delete" %}</a>
+                        <input type="submit"name="_save" value="{% trans 'Save' %}" class="btn btn-inverse-primary">
+                        <input type="submit" name="_continue" value="{% trans 'Save and continue editing' %}" class="btn btn-inverse-primary">
+                    </div>
+                    <h5 class="card-description">{% trans 'Important dates' %}</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>{% trans "Created at" %}<span class="btn btn-link" title="Popover title">{{ product.createdAt }}.</span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{% trans "Last update" %}<span class="btn btn-link" title="Popover title">{{ product.updatedAt }}.</span></p>
+                        </div>
+                    </div>
+                    <p>{% trans "Created by" %}<a href="{% url 'users' %}" role="button" class="btn btn-link" title="Popover title" data-content="Popover body content is set in this attribute.">{{product.createdBy.first_name}}.</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock contant %}

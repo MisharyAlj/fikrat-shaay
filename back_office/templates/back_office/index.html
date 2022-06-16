@@ -1,0 +1,280 @@
+{% extends 'back_office/base.html'%}
+{% load static %}
+{% load i18n %}
+
+{% block contant %}
+<div class="row">
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+                            <h3 class="mb-0">$12.34</h3>
+                            <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="icon icon-box-success ">
+                            <span class="mdi mdi-arrow-top-right icon-item"></span>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-muted font-weight-normal">Potential growth</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+                            <h3 class="mb-0">$17.34</h3>
+                            <p class="text-success ml-2 mb-0 font-weight-medium">+11%</p>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="icon icon-box-success">
+                            <span class="mdi mdi-arrow-top-right icon-item"></span>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-muted font-weight-normal">Revenue current</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+
+                            {% if sales_last_24.sales_total != None %}
+                            <h3 class="mb-0">{{ sales_last_24.sales_total|floatformat:2 }} SAR</h3>
+                            <p class="text-danger ml-2 mb-0 font-weight-medium">-2.4%</p>
+                            {% else %}
+                            <h3 class="mb-0">0.00 SAR</h3>
+                            <p class="text-danger ml-2 mb-0 font-weight-medium">-2.4%</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="icon icon-box-danger">
+                            <span class="mdi mdi-arrow-bottom-left icon-item"></span>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-muted font-weight-normal">{% trans 'Daily Income' %}</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+                            <h3 class="mb-0">$31.53</h3>
+                            <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="icon icon-box-success ">
+                            <span class="mdi mdi-arrow-top-right icon-item"></span>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-muted font-weight-normal">Expense current</h6>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4 grid-margin stretch-card">
+        <div class="card">
+
+            <form id="filterForm">
+                <label for="year">Choose a year:</label>
+                <select name="year" id="year"></select>
+                <input type="submit" value="Load" name="_load">
+            </form>
+            <div class="card-body">
+                <h4 class="card-title">Transaction History</h4>
+                <canvas id="transaction-history" class="transaction-chart"></canvas>
+                <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
+                    <div class="text-md-center text-xl-left">
+                        <h6 class="mb-1">Transfer to Paypal</h6>
+                        <p class="text-muted mb-0">07 Jan 2019, 09:12AM</p>
+                    </div>
+                    <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
+                        <h6 class="font-weight-bold mb-0">$236</h6>
+                    </div>
+                </div>
+                <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
+                    <div class="text-md-center text-xl-left">
+                        <h6 class="mb-1">Tranfer to Stripe</h6>
+                        <p class="text-muted mb-0">07 Jan 2019, 09:12AM</p>
+                    </div>
+                    <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
+                        <h6 class="font-weight-bold mb-0">$593</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex flex-row justify-content-between">
+                    <h4 class="card-title mb-1">{% trans 'Charts' %}</h4>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <canvas id="paymentMethodChart" class="transaction-chart"
+                            style="max-width: 764px; margin: 0 auto;"></canvas>
+                        <canvas id="salesChart" class="transaction-chart"
+                            style="max-width: 764px; margin: 0 auto;"></canvas>
+                        <canvas id="spendPerCustomerChart" class="transaction-chart"
+                            style="max-width: 764px; margin: 0 auto;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row ">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{% trans 'Latest invoices' %}</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th> {% trans 'Name' %} </th>
+                                <th> {% trans 'invoice ID' %} </th>
+                                <th> {% trans 'total' %} </th>
+                                <th> {% trans 'payment type' %} </th>
+                                <th> {% trans 'date' %} </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for invoice in last_5_invoices %}
+                            <tr>
+                                <td>
+                                    <span class="pl-2">{{ invoice.createdBy.first_name | title }}
+                                        {{invoice.createdBy.last_name | title }}</span>
+                                </td>
+                                <td> {{ invoice.invoiceId }} </td>
+                                <td> {{ invoice.total }} {% trans 'SAR' %} </td>
+                                <td> {{invoice.payment_type }} </td>
+                                <td> {{invoice.createdAt | date:'d M y, G:i' }} </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock contant %}
+
+{% block scripts %}
+
+<script>
+    let salesCtx = document.getElementById("salesChart").getContext("2d");
+    let salesChart = new Chart(salesCtx, {
+        type: "bar",
+        options: {
+            responsive: true,
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 25,
+                }
+            }
+        }
+    });
+    let spendPerCustomerCtx = document.getElementById("spendPerCustomerChart").getContext("2d");
+    let spendPerCustomerChart = new Chart(spendPerCustomerCtx, {
+        type: "line",
+        options: {
+            responsive: true,
+        }
+    });
+
+    let paymentMethodCtx = document.getElementById("paymentMethodChart").getContext("2d");
+    let paymentMethodChart = new Chart(paymentMethodCtx, {
+        type: "doughnut",
+        options: {
+            responsive: true,
+
+        }
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "/back_office/analytics/chart/filter-options/",
+            type: "GET",
+            dataType: "json",
+            success: (jsonResponse) => {
+                // Load all the options
+                jsonResponse.options.forEach(option => {
+                    $("#year").append(new Option(option, option));
+                });
+                // Load data for the first option
+                loadAllCharts($("#year").children().first().val());
+            },
+            error: () => console.log("Failed to fetch chart filter options!")
+        });
+    });
+
+    $("#filterForm").on("submit", (event) => {
+        event.preventDefault();
+
+        const year = $("#year").val();
+        loadAllCharts(year)
+    });
+
+    function loadChart(chart, endpoint) {
+        $.ajax({
+            url: endpoint,
+            type: "GET",
+            dataType: "json",
+            success: (jsonResponse) => {
+                // Extract data from the response
+                const title = jsonResponse.title;
+                const labels = jsonResponse.data.labels;
+                const datasets = jsonResponse.data.datasets;
+
+                // Reset the current chart
+                chart.data.datasets = [];
+                chart.data.labels = [];
+
+                // Load new data into the chart
+                chart.options.title.text = title;
+                chart.options.title.display = true;
+                chart.data.labels = labels;
+                datasets.forEach(dataset => {
+                    chart.data.datasets.push(dataset);
+                });
+                chart.update();
+            },
+            error: () => console.log("Failed to fetch chart data from " + endpoint + "!")
+        });
+    }
+
+    function loadAllCharts(year) {
+        loadChart(salesChart, `/back_office/analytics/chart/sales/${year}/`);
+        loadChart(spendPerCustomerChart, `/back_office/analytics/chart/spend-per-customer/${year}/`);
+        loadChart(paymentMethodChart, `/back_office/analytics/chart/payment-method/${year}/`);
+    }
+</script>
+{% endblock scripts %}
